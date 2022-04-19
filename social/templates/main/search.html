@@ -1,0 +1,236 @@
+{% extends "main/header.html" %}
+{% block title %}Поиск{% endblock title %}
+{%block content %}
+ <div class="main-container">
+
+     <section class="flush-with-above space-0">
+
+
+        <div class="bg-white">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="true">Студенты</a>
+                  </li>
+
+					 <li class="nav-item">
+                    <a class="nav-link" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Сообщества</a>
+                  </li>
+
+					<li class="nav-item">
+                    <a class="nav-link" id="contacts-tab" data-toggle="tab" href="#contacts" role="tab" aria-controls="contacts" aria-selected="false">Мероприятия</a>
+                  </li>
+
+
+                </ul>
+              </div>
+              <!--end of col-->
+            </div>
+            <!--end of row-->
+          </div>
+          <!--end of container-->
+        </div>
+      </section>
+
+		  <section class="flush-with-above">
+			  <div class="tab-content">
+
+			<div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+
+              <ul class="row feature-list feature-list-sm">
+
+             <!--end of section-->
+      <section class="flush-with-above">
+        <div class="container">
+
+          <!--end of row-->
+          <div class="row">
+            <div class="col">
+              <table class="table table-borderless table-hover align-items-center">
+                <thead>
+                  <tr>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">ДР</th>
+                    <th scope="col">ДП</th>
+                    <th scope="col">Город</th>
+                    <th scope="col">Иностранные языки</th>
+                  </tr>
+                </thead>
+                <tbody>
+             {% for el in student %}
+                  <tr class="bg-white">
+                    <th scope="row">
+                      <a class="media align-items-center" href="/user/{{ el.un }}">
+                        <img alt="Image" src="{{ el.pic }}" class="avatar rounded avatar-sm" />
+                        <div class="media-body">
+                          <span class="h6 mb-0">{{ el.f }} {{ el.i }} {{ el.o }}</span>
+                          <span class="text-muted">{{ el.spec.name }},{{ el.group.name }}</span>
+                        </div>
+                      </a>
+                    </th>
+                    <td>{{ el.dr }}</td>
+                    <td>1{{ el.ey }}</td>
+                    <td>
+                     {{ el.city }}
+                    </td>
+                    <td>
+                    {{ el.lang }}
+                    </td>
+                  </tr>
+              {% endfor %}
+                  <tr class="table-divider">
+                    <th></th>
+                    <td></td>
+                  </tr>
+
+
+
+                </tbody>
+              </table>
+
+            </div>
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+      </section>
+              </ul>
+              <!--end of row-->
+
+            <!--end of container-->
+          </div>
+
+	<div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+
+		   <ul class="row feature-list feature-list-sm">
+
+             <!--end of section-->
+      <section class="flush-with-above">
+        <div class="container">
+
+          <!--end of row-->
+          <div class="row">
+            <div class="col">
+              <table class="table table-borderless table-hover align-items-center">
+                <thead>
+
+                  <tr>
+                    <th scope="col">Сообщество</th>
+                    <th scope="col">ДС</th>
+                    <th scope="col">Тема</th>
+                    <th scope="col">Сайт</th>
+                    <th scope="col">Контакты</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {% for el in coms %}
+                  <tr class="bg-white">
+                    <th scope="row">
+                      <a class="media align-items-center" href="/community/{{ el.id }}">
+                        <img alt="Image" src="{{ el.pic }}" class="avatar rounded avatar-sm" />
+                        <div class="media-body">
+                          <span class="h6 mb-0"> {{ el.name }}</span>
+                        </div>
+                      </a>
+                    </th>
+                    <td> {{ el.dc }}</td>
+                    <td> {{ el.theme.name }}</td>
+                    <td>
+                      {{ el.site }}
+                    </td>
+                    <td>
+                     {{ el.mail }}, {{ el.telegram }}
+                    </td>
+                  </tr>
+                  <tr class="table-divider">
+                    <th></th>
+                    <td></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+
+              </table>
+
+            </div>
+
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+      </section>
+              </ul>
+
+				  </div>
+
+
+  <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+
+	     <ul class="row feature-list feature-list-sm">
+
+             <!--end of section-->
+      <section class="flush-with-above">
+        <div class="container">
+
+          <!--end of row-->
+          <div class="row">
+            <div class="col">
+              <table class="table table-borderless table-hover align-items-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Мероприятие</th>
+                    <th scope="col">ДМ</th>
+                    <th scope="col">Адрес</th>
+                    <th scope="col">Тема</th>
+                    <th scope="col">Контакты</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {% for el in eves %}
+                  <tr class="bg-white">
+                    <th scope="row">
+                      <a class="media align-items-center" href="/event/{{ el.id }}">
+                        <img alt="Image" src="{{ el.pic }}" class="avatar rounded avatar-sm" />
+                        <div class="media-body">
+                          <span class="h6 mb-0">{{ el.name }}</span>
+                        </div>
+                      </a>
+                    </th>
+                    <td>{{ el.de }}</td>
+                    <td>{{ el.adr }}</td>
+                    <td>
+                    {{ el.theme.name }}
+                    </td>
+                    <td>
+                    {{ el.mail }},{{ el.telegram }}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <tr class="table-divider">
+                    <th></th>
+                    <td></td>
+                  </tr>
+
+
+
+                </tbody>
+              </table>
+
+            </div>
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+      </section>
+              </ul>
+
+				  </div>
+
+
+			  </div>
+		 </section>
+{%endblock content %}

@@ -1,0 +1,364 @@
+{% extends "main/header.html" %}
+{% load static %}
+{% block title %}Мероприятие{% endblock title %}
+{%block content %}
+<div class="main-container">
+      <img alt="Image" src="{% static 'images/584fb5d0a9864.jpg'%}" class="w-100" />
+      <section class="space-sm">
+        <div class="container">
+           {% for el in communes %}
+          <div class="row justify-content-between">
+            <div class="col-12 col-md-8 col-lg-7 mt--8">
+              <div class="d-flex align-items-end mb-4">
+                <img alt="Image" src="{{ el.pic }}" class="avatar avatar-lg rounded" />
+                <nav aria-label="breadcrumb" role="navigation">
+                  <ol class="breadcrumb p-0 ml-4">
+                    <li class="breadcrumb-item"><a href="index.html">Мероприятия</a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="pages-app.html">Развлечения</a>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <div>
+                <h1 class="mb-0">{{ el.name }}</h1>
+                <h2 class="lead mb-3"> </h2>
+                <div class="d-flex align-items-center">
+                  <span class="badge badge-secondary mr-3">{{ el.theme.name }}</span>
+                  <ul class="list-inline text-small d-inline-block">
+
+                      <li class="list-inline-item">&#128694; {{ cominfo.allmemb }}</li>
+                    <li class="list-inline-item">&#127776;{{ cominfo.allpost }}</li>
+					   &nbsp;&nbsp;&nbsp;<li class="list-inline-item">&#9684;{{ el.dc }}</li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+              <h5 class="mb-4">Описание</h5>
+              <article>
+                <p>
+                  {{ el.about }}
+                </p>
+
+
+              </article>
+              {% endfor %}
+              <hr>
+              <h5 class="mb-4">Посты</h5>
+              <div class="card">
+                <div class="card-header bg-secondary d-flex justify-content-between">
+                  <button class="btn btn-secondary" type="button" data-target="#comment-reply" data-toggle="collapse" aria-expanded="false" aria-controls="comment-reply">Добавить</button>
+                  <form class="d-flex align-items-center">
+                    <span class="mr-2 text-muted text-small text-nowrap">Sort by:</span>
+                    <select class="custom-select">
+                      <option value="alpha">По порядку</option>
+                      <option value="old-new" selected>По дате</option>
+                      <option value="new-old">По алфавиту</option>
+                      <option value="recent">По популярности</option>
+                    </select>
+                  </form>
+                </div>
+                <div class="collapse" id="comment-reply">
+                  <form class="card-body" method="POST">
+                      {% csrf_token %}
+                    <div class="form-group">
+                        <textarea class="form-control from-control-lg" id="title" name="title" rows="1" placeholder="Title"></textarea>
+                      <textarea class="form-control from-control-lg" id="comment" name="comment" rows="4" placeholder="Type your reply here"></textarea>
+                        <textarea class="form-control from-control-lg" id="img" name="img" rows="1" placeholder="Image link"></textarea>                    </div>
+
+                    <div class="d-flex align-items-center">
+                      <button type="submit" class="btn btn-success mr-3">Отправить</button>
+                      <a href="#comment-reply" class="text-small text-muted" data-toggle="collapse" aria-expanded="true" aria-controls="comment-reply">Отмена</a>
+                    </div>
+                  </form>
+                </div>
+                <ul class="list-group list-group-flush list-group-comments">
+
+                    {% for el in post %}
+                  <li class="list-group-item py-4">
+                    <div class="media">
+                      <img alt="Image" src="{{ el.student.pic }}" class="avatar avatar-sm" />
+                      <div class="media-body">
+                        <div class="mb-2">
+                          <span class="h6 mb-0">{{ el.student.f }} {{ el.student.i }} {{ el.student.o }}</span>
+                          <span class="text-muted"></span>
+                        </div>
+						     <div class="media-body">
+                      <span class="h5 mb-0">{{ el.title }}</span>
+                    </div>
+                        <p>
+                           {{ el.text }}
+                        </p>
+                         <img src="{{ el.img }}" alt="">
+                        <div class="d-flex align-items-center">
+                          <div class="mr-2">
+
+                             <a href="/evenlike/{{ el.id }}/"><button class="btn btn-sm btn-outline-primary">
+                       &#10084;</button></a>
+							 <a href="/epost/{{ el.id }}/"><button class="btn btn-sm btn-outline-primary">
+                      &#9993;</button></a>
+
+
+
+                          </div>
+                          <small class="text-muted">{{ el.dp }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                   {% endfor %}
+
+                </ul>
+              </div>
+
+            </div>
+
+			  				<div class="modal fade" id="modalCom" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <!-- <h5 class="modal-title">Modal title</h5> -->
+        <h2 class="fw-bold mb-0">Пост</h2>
+       <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+
+		  <li class="list-group-item py-4">
+                    <div class="media">
+                      <img alt="Image" src="assets/img/avatar-female-2.jpg" class="avatar avatar-sm" />
+                      <div class="media-body">
+                        <div class="mb-2">
+                          <span class="h6 mb-0">Kelly Fraiser</span>
+							<br>
+                          <span class="text-muted">Making awesome products</span>
+                        </div>
+						  <span class="h6 mb-0">Тема</span>
+                        <p>
+                          Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                        </p>
+                        <div class="d-flex align-items-center">
+                          <div class="mr-2">
+                            <button class="btn btn-sm btn-outline-primary">&#10084;(2)</button>
+							<button class="btn btn-sm btn-outline-primary">&#9993;(4)</button>
+                          </div>
+                          <small class="text-muted">1st Dec 2017 • 10:15am</small>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+		   <form class="card-body">
+                    <div class="form-group">
+                      <textarea class="form-control from-control-lg" id="comment-reply-text" name="comment-reply" rows="4" placeholder="Type your reply here"></textarea>
+                    </div>
+
+			       <br>
+                    <div class="d-flex align-items-center">
+                      <button type="submit" class="btn btn-success mr-3">Отправить</button>
+						&nbsp;
+                      <a href="#comment-reply" class="text-small text-muted" data-toggle="collapse" aria-expanded="true" aria-controls="comment-reply">Отмена</a>
+                    </div>
+                  </form>
+
+
+		   <li class="list-group-item py-4">
+                    <div class="media">
+                      <img alt="Image" src="assets/img/avatar-female-2.jpg" class="avatar avatar-sm" />
+                      <div class="media-body">
+                        <div class="mb-2">
+                          <span class="h6 mb-0">Kelly Fraiser</span>
+							<br>
+                          <span class="text-muted">Making awesome products</span>
+                        </div>
+                        <p>
+                         Ialiquam quaerat voluptatem.
+                        </p>
+                        <div class="d-flex align-items-center">
+
+                          <small class="text-muted">1st Dec 2017 • 10:15am</small>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+      </div>
+    </div>
+  </div>
+</div>
+            <!--end of col-->
+              {% for el in communes %}
+            <div class="col-12 col-md-4">
+              <div class="card">
+                <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%{{ el.adr }}+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                allowfullscreen class="card-img-top w-100"></iframe>
+                <div class="card-body">
+                  <h5>{{ el.name }}</h5>
+					<p>
+                   {{ el.de }}
+                  </p>
+                  <p>
+                   {{ el.adr }}
+                  </p>
+
+                </div>
+              </div>
+
+				<div class="card card-borderless bg-secondary">
+                <a class="card-body" href="#">
+                  <div class="d-flex justify-content-between mb-3">
+
+                    <span class="title-decorative">Sponsor</span>
+                  </div>
+                  <span class="h6">{{ el.sp }}</span>
+                </a>
+              </div>
+               {% endfor %}
+
+              <!-- end card -->
+
+              <!--end of card-->
+                 <h5>{{ cominfo.header }}</h5>
+
+				 <a href="/ap/{{ cominfo.eid }}"><button type="button" class="btn btn-primary btn-lg btn-block">{{ cominfo.head }}</button></a></td>
+
+              <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                  <div>
+                    <span class="h6">Собравшиеся </span>
+                  </div>
+                  <a href="showmodal" data-toggle="modal" data-target="#modalTour">View all &rsaquo;</a>
+					<script>
+					if (document.location.href.indexOf('showModal') != -1) {
+                   $("#modalTour").modal('show');
+                      }
+					</script>
+
+					<div class="modal fade" id="modalTour" tabindex="-1">
+  <div class="modal-dialog" role="document">
+
+   <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Собравшиеся</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+		   {% for el in mem %}
+		   <li class="d-flex gap-4">
+              <a class="media" href="/user/{{ el.student.un }}">
+            <img alt="Image" src="{{ el.student.pic }}" class="avatar avatar-sm mr-3" />
+            <div>
+              <h5 class="mb-0">{{ el.student.f }} {{ el.student.i }} {{ el.student.o }}</h5>
+
+            </div>
+                 </a>
+          </li>
+           {% endfor %}
+
+
+      </div>
+
+    </div>
+  </div>
+  </div>
+</div>
+
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled list-spacing-sm">
+
+                    {% for el in memfour %}
+                    <li class="d-flex gap-4">
+              <a class="media" href="/user/{{ el.student.un }}">
+            <img alt="Image" src="{{ el.student.pic }}" class="avatar avatar-sm mr-3" />
+            <div>
+              <h5 class="mb-0">{{ el.student.f }} {{ el.student.i }} {{ el.student.o }}</h5>
+
+            </div>
+                 </a>
+          </li>
+                     {% endfor %}
+
+
+                  </ul>
+                </div>
+              </div>
+
+              {% for el in communes %}
+				 <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                  <div>
+                    <span class="h6">Владелец</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled list-spacing-sm">
+
+
+		   <li class="d-flex gap-4">
+              <a class="media" href="/user/{{ el.student.un }}">
+            <img alt="Image" src="{{ el.student.pic }}" class="avatar avatar-sm mr-3" />
+            <div>
+              <h5 class="mb-0">{{ el.student.f }} {{ el.student.i }} {{ el.student.o }}</h5>
+
+            </div>
+                 </a>
+          </li>
+
+
+
+
+                  </ul>
+                </div>
+              </div>
+
+				 <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                  <div>
+                    <span class="h6">Контакты</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled list-spacing-sm">
+
+					   <li>
+                      <a class="media" href="#">
+                        <img alt="Image" src="assets/img/avatar-male-1.jpg" class="avatar avatar-sm mr-3" />
+                        <div class="media-body">
+                          <span class="h6 mb-0">{{ el.site }}</span>
+                          <span class="text-muted">Site</span>
+                        </div>
+                      </a>
+                    </li>
+
+					   <li>
+                      <a class="media" href="#">
+                        <img alt="Image" src="assets/img/avatar-male-1.jpg" class="avatar avatar-sm mr-3" />
+                        <div class="media-body">
+                          <span class="h6 mb-0">{{ el.mail }}</span>
+                          <span class="text-muted">Email</span>
+                        </div>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a class="media" href="#">
+                        <img alt="Image" src="assets/img/avatar-male-1.jpg" class="avatar avatar-sm mr-3" />
+                        <div class="media-body">
+                          <span class="h6 mb-0">@{{ el.telegram }}</span>
+                          <span class="text-muted">Telegram</span>
+                        </div>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+{%endblock content %}

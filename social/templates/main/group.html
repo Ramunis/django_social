@@ -1,0 +1,112 @@
+{% extends "main/header.html" %}
+{% block title %}Группа{% endblock title %}
+{%block content %}
+ <div class="main-container">
+
+	<section class="bg-white">
+        <div class="container">
+            {% for el in groups %}
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <div class="media">
+                <img alt="Image" src="https://playmarket-pc.com/wp-content/uploads/2018/04/%D0%9A%D0%BE%D0%BF%D0%B0%D1%82%D0%B5%D0%BB%D1%8C-%D0%9E%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-1.jpg" />
+                <div class="media-body">
+                  <div class="mb-3">
+                    <h1 class="h2 mb-2">{{ el.name }}</h1>
+                 </i> {{ el.spec.name }}</span>
+                  </div>
+                  <p></p>
+
+                </div>
+              </div>
+            </div>
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+       {% endfor %}
+        <!--end of container-->
+      </section>
+	</div>
+
+
+
+	<section class="flush-with-above space-0">
+        <div class="bg-white">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+
+                  <li class="nav-item">
+                    <a class="nav-link active" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">Студенты</a>
+                  </li>
+
+                </ul>
+              </div>
+              <!--end of col-->
+            </div>
+            <!--end of row-->
+          </div>
+          <!--end of container-->
+        </div>
+      </section>
+      <section class="flush-with-above">
+        <div class="tab-content">
+
+              <!--end of row-->
+
+
+            <!--end of container-->
+
+			<div class="tab-pane fade show active" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+            <div class="container">
+              <div class="row">
+
+
+                    {% for el in student %}
+                <div class="col-12 col-md-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="media">
+                        <a href="user/{{ el.un }}" class="mr-3">
+                          <img alt="" src="{{ el.pic }}" class="avatar" />
+                        </a>
+                        <div class="media-body">
+                          <div>
+                            <a href="user/{{ el.un }}" class="h5 m-0">
+                              <h5>{{ el.f }} {{ el.i }} {{ el.o }}</h5>
+                            </a>
+                            <small class="text-muted"></i> {{ el.spec.name }},{{ el.group.name }}</small>
+                          </div>
+                          <ul class="list-inline">
+
+                           &nbsp;<li class="list-inline-item">&#9684;{{ el.ey }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                      <a class="text-small" href="#">@{{ el.un }}</a>
+                      <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Follow">&#10010;
+                      </button>
+                    </div>
+                  </div>
+                  <!-- end card -->
+                </div>
+                 {% endfor %}
+
+
+                  <!-- end card -->
+                </div>
+
+              </div>
+              <!--end of row-->
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+{%endblock content %}

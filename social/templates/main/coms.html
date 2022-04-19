@@ -1,0 +1,149 @@
+{% extends "main/header.html" %}
+{% block title %}Сообщества{% endblock title %}
+{%block content %}
+<div class="main-container">
+      <nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
+        <div class="container">
+          <div class="row justify-content-center">
+
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+      </nav>
+      <section class="bg-primary text-light">
+        <div class="container">
+          <div class="row justify-content-center mb-5">
+            <div class="col-auto text-center">
+
+              <h1 class="display-4">Поиск сообществ</h1>
+            </div>
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+              <form class="card card-sm">
+                <div class="card-body row no-gutters align-items-center">
+                  <div class="col-auto">
+                    &#8981;
+                  </div>
+                  <!--end of col-->
+                  <div class="col">
+                    <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search topics or keywords" />
+                  </div>
+                  <!--end of col-->
+                  <div class="col-auto">
+                    <button class="btn btn-lg btn-success" type="submit">Поиск</button>
+                  </div>
+                  <!--end of col-->
+                </div>
+              </form>
+            </div>
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+      </section>
+
+	    <section>
+        <div class="container">
+			 <a href="showcomment" data-toggle="modal" data-target="#modalCom"><button class="btn btn-sm btn-outline-primary">Новое сообщество</button></a>
+							  <script>
+					if (document.location.href.indexOf('showComment') != -1) {
+                   $("#modalCom").modal('show');
+                      }
+					</script>
+          <div class="row">
+            <div class="col-12 col-md-auto mb-5">
+
+              <nav class="nav flex-md-column">
+                <a href="/coms" class="nav-link active">All</a>
+                {% for el in themes %}
+                <a href="/filtrc/{{ el.id }}" class="nav-link active">{{ el.name }}</a>
+                {% endfor %}
+
+              </nav>
+            </div>
+            <!--end of col-->
+            <div class="col">
+              <div class="card card-sm">
+
+                <ul class="list-group list-group-flush">
+
+                   {% for el in communes %}
+                  <li class="list-group-item">
+                    <div class="media align-items-center">
+                      <a href="#" class="mr-4">
+                        <img alt="Image" src="{{ el.pic }}" class="rounded avatar avatar-lg" />
+                      </a>
+                      <div class="media-body">
+                        <div class="d-flex justify-content-between mb-2">
+                          <div>
+                            <a href="/community/{{ el.id }}" class="mb-1">
+                              <h4>{{ el.name }}</h4>
+                            </a>
+                            <span>{{ el.about }}</span>
+                          </div>
+
+                        </div>
+                        <a class="badge badge-secondary badge-pill mb-2" href="/community/{{ el.id }}">{{ el.theme.name }}</a>
+                        <div class="text-small">
+                          <ul class="list-inline">
+
+                           &nbsp;<li class="list-inline-item">&#9684;{{ el.dc }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+
+
+                </ul>
+              </div>
+            </div>
+            <!--end of col-->
+
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+      </section>
+
+	  <div class="modal fade" id="modalCom" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <!-- <h5 class="modal-title">Modal title</h5> -->
+        <h2 class="fw-bold mb-0">Создание сообщества</h2>
+         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+      <form method="POST">
+        {% csrf_token %}
+      <table>
+      {{ form }}
+    </table>
+
+          <small class="text-muted"> </small>
+          <hr class="my-4">
+
+          <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-4" type="submit">
+            Создать
+          </button>
+        </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock content %}
